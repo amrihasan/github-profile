@@ -16,30 +16,37 @@ tampil2()
 // problem : we need a simple to look at github profile
 // solution : use nodejs to connect to github API to get profile info and print out the console
 
-// todo : connect to github
+// todo : [x] connect to github
 
-const https = require('https');
+const https = require('https')
 const options = {
-    hostname: "api.github.com",
+    hostname: 'api.github.com',
     port: 443,
-    path: 'users/amrihasan',
+    path: '/users/amrihasan',
     method: 'GET',
     headers: {
         'user-agent':'nodejs'
     }
 }
 
-let request = https.request(options, (res) => {
-  console.log('statusCode:', res.statusCode);
-
+// todo : [x] read the data
+let request = https.request(options, (response) => {
+    let body = ''
+    response.on('data', (data) => {
+        body = body + data
+  })
+    response.on('end', () => {
+        console.log(body)
+    })
 });
 
 request.end()
+
 request.on('error', (e) => {
     console.error(e)
 })
 
 
-// todo : read the data
+
 // todo : parse the data 
 // todo : print the data out
