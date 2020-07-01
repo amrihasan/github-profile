@@ -36,8 +36,13 @@ let request = https.request(options, (response) => {
         body = body + data
   })
     response.on('end', () => {
-        console.log(body)
+        // todo : parse the data 
+        // convert String to JSON (javascript object)
+        let profile = JSON.parse(body)
+        console.log(profile.avatar_url)
     })
+    
+    // todo : print the data out
 });
 
 request.end()
@@ -48,5 +53,3 @@ request.on('error', (e) => {
 
 
 
-// todo : parse the data 
-// todo : print the data out
