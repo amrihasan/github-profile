@@ -36,7 +36,7 @@ let request = https.request(options, (response) => {
         body = body + data
   })
     response.on('end', () => {
-        // todo : parse the data 
+        // todo : [x] parse the data 
         // convert String to JSON (javascript object)
         let profile = JSON.parse(body)
         console.log(profile.avatar_url)
