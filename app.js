@@ -19,10 +19,13 @@ tampil2()
 // todo : [x] connect to github
 
 const https = require('https')
+
+const username = 'Amrihasan'
+
 const options = {
     hostname: 'api.github.com',
     port: 443,
-    path: '/users/amrihasan',
+    path: `/users/${username}`,
     method: 'GET',
     headers: {
         'user-agent':'nodejs'
@@ -35,11 +38,17 @@ let request = https.request(options, (response) => {
     response.on('data', (data) => {
         body = body + data
   })
+
     response.on('end', () => {
-        // todo : [x] parse the data 
-        // convert String to JSON (javascript object)
         let profile = JSON.parse(body)
-        console.log(profile.avatar_url)
+        if (response.statusCode === 200){
+            // todo : [x] parse the data 
+            // convert String to JSON (javascript object)
+            
+            console.log(`${profile.login} owns ${profile.public_repos} repo(s) and has ${profile.followers} followers(s).`)
+        } else {
+            console.log(`profile with username '${username}' not found.`)
+        }
     })
     
     // todo : print the data out
